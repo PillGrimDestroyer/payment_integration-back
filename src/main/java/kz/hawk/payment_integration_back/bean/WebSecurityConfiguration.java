@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
@@ -49,11 +50,13 @@ public class WebSecurityConfiguration {
     log.warn("snap base url:: {}", snapAdminProperties.getBaseUrl());
 
     http
+      .httpBasic(Customizer.withDefaults())
       .csrf(x -> x
         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
         .ignoringRequestMatchers(
           "/instances",
-          "/actuator/**"
+          "/actuator/**",
+          "/api/**"
         ))
       .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
       .authorizeHttpRequests(x -> x
