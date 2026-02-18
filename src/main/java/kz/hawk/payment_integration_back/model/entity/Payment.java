@@ -42,4 +42,12 @@ public class Payment {
   @JdbcTypeCode(SqlTypes.TIMESTAMP)
   private LocalDateTime updatedAt;
 
+  @Version
+  private int version;
+
+  @PreUpdate
+  protected void onUpdate() {
+    updatedAt = LocalDateTime.now();
+  }
+
 }

@@ -40,14 +40,17 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'de.codecentric:spring-boot-admin-starter-client'
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
-    
+
     // Source: https://mvnrepository.com/artifact/tech.ailef/snap-admin
     implementation("tech.ailef:snap-admin:0.2.1")
 
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.postgresql:postgresql'
+    compileOnly "org.mapstruct:mapstruct:1.6.3"
 
+    annotationProcessor "org.mapstruct:mapstruct-processor:1.6.3"
     annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.testng:testng:7.12.0'
