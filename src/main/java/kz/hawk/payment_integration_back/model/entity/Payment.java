@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import tech.ailef.snapadmin.external.annotations.Filterable;
+import tech.ailef.snapadmin.external.annotations.ReadOnly;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -26,6 +28,7 @@ public class Payment {
   @JdbcTypeCode(SqlTypes.NUMERIC)
   private BigDecimal amount;
 
+  @Filterable
   @Enumerated(EnumType.STRING)
   @Column(name = "status", nullable = false)
   private PaymentStatus status;
@@ -34,10 +37,13 @@ public class Payment {
   @JoinColumn(name = "user_id")
   private User user;
 
+  @ReadOnly
+  @Filterable
   @Column(name = "created_at", nullable = false)
   @JdbcTypeCode(SqlTypes.TIMESTAMP)
   private LocalDateTime createdAt;
 
+  @ReadOnly
   @Column(name = "updated_at", nullable = false)
   @JdbcTypeCode(SqlTypes.TIMESTAMP)
   private LocalDateTime updatedAt;
@@ -48,6 +54,12 @@ public class Payment {
   @PreUpdate
   protected void onUpdate() {
     updatedAt = LocalDateTime.now();
+  }
+
+  @PrePersist
+  protected void onCreate() {
+    createdAt = LocalDateTime.now();
+    updatedAt = createdAt;
   }
 
 }
