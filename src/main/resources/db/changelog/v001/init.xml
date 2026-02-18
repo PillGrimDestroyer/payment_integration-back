@@ -5,6 +5,40 @@
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <changeSet id="18_02_2026-001" author="WorkHawk">
-
+        <createTable tableName="payment">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_payment"/>
+            </column>
+            <column name="amount" type="NUMERIC(19, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="UUID"/>
+            <column name="created_at" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
     </changeSet>
+
+    <changeSet id="18_02_2026-002" author="WorkHawk">
+        <createTable tableName="user">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_user"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="18_02_2026-003" author="WorkHawk">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="payment" constraintName="FK_PAYMENT_ON_USER" referencedColumnNames="id"
+                                 referencedTableName="user"/>
+    </changeSet>
+
 </databaseChangeLog>
