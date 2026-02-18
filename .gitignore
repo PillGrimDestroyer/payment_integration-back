@@ -35,3 +35,5 @@ out/
 
 ### VS Code ###
 .vscode/
+
+/payment_integration-back/volumes
