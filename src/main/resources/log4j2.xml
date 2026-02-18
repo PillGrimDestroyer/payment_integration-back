@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name="LOG_PATTERN">%style{%d{yyyy-MM-dd HH:mm:ss}}{green} [%15.15t] %highlight{%-5level}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=green, DEBUG=green bold, TRACE=blue} %style{${sys:PID}}{magenta} --- %style{[%c{1.}]}{blue} : %msg%n%throwable</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="consoleAppender" target="SYSTEM_OUT">
+            <PatternLayout disableAnsi="false"
+                           pattern="${LOG_PATTERN}"/>
+        </Console>
+
+        <RollingFile name="rootFileAppender"
+                     fileName="${env:LOG_PATH}/root.log"
+                     filePattern="${env:LOG_PATH}/archive/root-%d{yyyy-MM-dd}-%i.log.gz">
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </RollingFile>
+
+        <RollingFile name="appFileAppender"
+                     fileName="${env:LOG_PATH}/app.log"
+                     filePattern="${env:LOG_PATH}/archive/app-%d{yyyy-MM-dd}-%i.log.gz">
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="consoleAppender"/>
+            <AppenderRef ref="rootFileAppender"/>
+        </Root>
+
+        <Logger name="kz.hawk" level="${env:LOG_LEVEL}">
+            <AppenderRef ref="appFileAppender"/>
+        </Logger>
+    </Loggers>
+</Configuration>
