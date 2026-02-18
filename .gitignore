@@ -37,4 +37,4 @@ out/
 .vscode/
 
 /payment_integration-back/volumes
-snapadmin_internal.mv.db
+snapadmin_internal.**.db

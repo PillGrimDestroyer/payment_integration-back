@@ -16,10 +16,10 @@
                 <constraints nullable="false"/>
             </column>
             <column name="user_id" type="UUID"/>
-            <column name="created_at" type="DATE">
+            <column name="created_at" type="TIMESTAMP" defaultValue="now()">
                 <constraints nullable="false"/>
             </column>
-            <column name="updated_at" type="DATE">
+            <column name="updated_at" type="TIMESTAMP" defaultValue="now()">
                 <constraints nullable="false"/>
             </column>
         </createTable>

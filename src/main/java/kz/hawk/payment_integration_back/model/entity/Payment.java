@@ -35,11 +35,11 @@ public class Payment {
   private User user;
 
   @Column(name = "created_at", nullable = false)
-  @JdbcTypeCode(SqlTypes.DATE)
+  @JdbcTypeCode(SqlTypes.TIMESTAMP)
   private LocalDateTime createdAt;
 
   @Column(name = "updated_at", nullable = false)
-  @JdbcTypeCode(SqlTypes.DATE)
+  @JdbcTypeCode(SqlTypes.TIMESTAMP)
   private LocalDateTime updatedAt;
 
 }
