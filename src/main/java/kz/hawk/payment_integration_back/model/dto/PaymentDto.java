@@ -7,14 +7,13 @@ import kz.hawk.payment_integration_back.model.enums.PaymentStatus;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 /**
  * DTO for {@link Payment}
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record PaymentDto(
-  UUID id,
+  Long id,
   BigDecimal amount,
   PaymentStatus status,
   LocalDateTime createdAt,

@@ -11,8 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.UUID;
-
 /**
  * @author Work (Hawk)
  * @since 18.02.2026 13:49
@@ -26,17 +24,17 @@ public class PaymentServiceImpl implements PaymentService {
 
   @Override
   @Transactional
-  public void eventWaitClientPayment(UUID paymentId) {
+  public void eventWaitClientPayment(Long paymentId) {
     proceedPaymentToNextStatus(paymentId, PaymentStatus.CLIENT_PAYMENT_WAITING);
   }
 
   @Override
   @Transactional
-  public void eventClientPayed(UUID paymentId) {
+  public void eventClientPayed(Long paymentId) {
     proceedPaymentToNextStatus(paymentId, PaymentStatus.BANK_APPROVAL_WAITING);
   }
 
-  private void proceedPaymentToNextStatus(UUID paymentId, PaymentStatus nextStatus) {
+  private void proceedPaymentToNextStatus(Long paymentId, PaymentStatus nextStatus) {
     Payment payment = paymentRepository.findById(paymentId)
                                        .orElseThrow(() -> new EntityNotFoundException("Payment not found"));
 

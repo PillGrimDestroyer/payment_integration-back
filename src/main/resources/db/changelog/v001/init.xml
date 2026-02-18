@@ -4,9 +4,14 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
+
     <changeSet id="18_02_2026-001" author="WorkHawk">
+        <createSequence incrementBy="1" sequenceName="payment_seq" startValue="1"/>
+    </changeSet>
+
+    <changeSet id="18_02_2026-002" author="WorkHawk">
         <createTable tableName="payment">
-            <column name="id" type="UUID">
+            <column name="id" type="BIGINT" defaultValue="nextval('payment_seq')">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_payment"/>
             </column>
             <column name="amount" type="NUMERIC(19, 2)">
@@ -15,11 +20,11 @@
             <column name="status" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_id" type="UUID"/>
-            <column name="created_at" type="TIMESTAMP" defaultValue="now()">
+            <column name="user_id" type="BIGINT"/>
+            <column name="created_at" type="DATETIME" defaultValue="now()">
                 <constraints nullable="false"/>
             </column>
-            <column name="updated_at" type="TIMESTAMP" defaultValue="now()">
+            <column name="updated_at" type="DATETIME" defaultValue="now()">
                 <constraints nullable="false"/>
             </column>
             <column name="version" type="INT">
@@ -28,9 +33,13 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="18_02_2026-002" author="WorkHawk">
-        <createTable tableName="user">
-            <column name="id" type="UUID">
+    <changeSet id="18_02_2026-003" author="WorkHawk">
+        <createSequence incrementBy="1" schemaName="public" sequenceName="user_seq" startValue="1"/>
+    </changeSet>
+
+    <changeSet id="18_02_2026-004" author="WorkHawk">
+        <createTable schemaName="public" tableName="user">
+            <column name="id" type="BIGINT" defaultValue="nextval('user_seq')">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_user"/>
             </column>
             <column name="name" type="VARCHAR(255)">
@@ -39,9 +48,9 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="18_02_2026-003" author="WorkHawk">
+    <changeSet id="18_02_2026-005" author="WorkHawk">
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="payment" constraintName="FK_PAYMENT_ON_USER" referencedColumnNames="id"
-                                 referencedTableName="user"/>
+                                 referencedTableName="user" referencedTableSchemaName="public"/>
     </changeSet>
 
 </databaseChangeLog>

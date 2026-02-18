@@ -9,7 +9,6 @@ import org.hibernate.validator.constraints.Length;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -18,9 +17,10 @@ import java.util.UUID;
 public class User {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_seq")
+  @SequenceGenerator(name = "user_id_seq", sequenceName = "user_seq", allocationSize = 1)
   @Column(name = "id", nullable = false)
-  private UUID id;
+  private Long id;
 
   @Length(max = 255)
   @Column(name = "name", nullable = false)

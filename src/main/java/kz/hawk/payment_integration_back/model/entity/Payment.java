@@ -9,7 +9,6 @@ import org.hibernate.type.SqlTypes;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -18,9 +17,10 @@ import java.util.UUID;
 public class Payment {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "payment_id_seq")
+  @SequenceGenerator(name = "payment_id_seq", sequenceName = "payment_seq", allocationSize = 1)
   @Column(name = "id", nullable = false)
-  private UUID id;
+  private Long id;
 
   @Column(name = "amount", nullable = false, precision = 19, scale = 2)
   @JdbcTypeCode(SqlTypes.NUMERIC)

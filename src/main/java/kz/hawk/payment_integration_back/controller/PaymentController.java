@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.UUID;
-
 /**
  * @author Work (Hawk)
  * @since 18.02.2026 13:23
@@ -22,12 +20,12 @@ public class PaymentController {
   private final PaymentService paymentService;
 
   @PutMapping("/{paymentId}/wait-client-payment")
-  public void waitClientPayment(@PathVariable UUID paymentId) {
+  public void waitClientPayment(@PathVariable Long paymentId) {
     paymentService.eventWaitClientPayment(paymentId);
   }
 
   @PutMapping("/{paymentId}/client-payed")
-  public void clientPayed(@PathVariable UUID paymentId) {
+  public void clientPayed(@PathVariable Long paymentId) {
     paymentService.eventClientPayed(paymentId);
   }
 
